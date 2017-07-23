@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="task-center-web">
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <dependent-module archiveName="task-center-service-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/task-center-service/task-center-service">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="task-center-mapper-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/task-center-mapper/task-center-mapper">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="task-center-pojo-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/task-center-pojo/task-center-pojo">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="depponlts-spring-1.7.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/depponlts-spring/depponlts-spring">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="depponlts-tasktracker-1.7.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/depponlts-tasktracker/depponlts-tasktracker">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="depponlts-core-1.7.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/depponlts-core/depponlts-core">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="depponlts-jobclient-1.7.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/depponlts-jobclient/depponlts-jobclient">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="depponlts-cache-1.7.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/depponlts-cache/depponlts-cache">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="depponlts-api-1.7.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/depponlts-api/depponlts-api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="depponlts-pojo-1.7.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/depponlts-pojo/depponlts-pojo">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="task-common-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/task-common/task-common">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="context-root" value="task-center-web"/>
+        <property name="java-output-path" value="/task-center-web/target/classes"/>
+    </wb-module>
+</project-modules>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.deppon.task.mapper.TbUserMapperByCondition" >
+  <select id="getUserList" resultType="com.deppon.task.pojo.TbUser" parameterType="List">
+	SELECT
+	*
+	FROM
+	tb_user
+	WHERE
+	phone NOT IN(SELECT phone FROM tb_user_copy)
+	AND RIGHT(phone,1) IN 
+	<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+                    #{item}
+    </foreach>
+  </select>
+</mapper>

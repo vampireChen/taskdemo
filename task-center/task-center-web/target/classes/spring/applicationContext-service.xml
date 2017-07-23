@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd 
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+
+	<!-- 扫描包加载Service实现类 -->
+	<!-- <bean id="taskTrackerAnnotationFactoryBean" class="com.github.ltsopensource.spring.TaskTrackerAnnotationFactoryBean" init-method="start">
+    <property name="jobRunnerClass" value="com.task.service.MyJobRunner"/>
+    <property name="bizLoggerLevel" value="INFO"/>
+    <property name="clusterName" value="test_cluster"/>
+    <property name="registryAddress" value="zookeeper://192.168.98.143:2181"/>
+    <property name="nodeGroup" value="test_TaskTracker"/>
+    <property name="workThreads" value="20"/>
+    <property name="masterChangeListeners">
+        <list>
+            <bean class="com.task.support.MasterChangeListenerImpl"/>
+        </list>
+    </property>
+    <property name="configs">
+        <props>
+            <prop key="job.fail.store">leveldb</prop>
+        </props>
+    </property>
+</bean> -->
+<context:component-scan base-package="com.deppon.task.service"/>
+<bean class="com.github.ltsopensource.spring.quartz.QuartzLTSProxyBean">
+	<property name="locations" value="quartz.properties">
+		<!-- <list>
+			<value>com/deppon/task/service/quartz.cfg</value>
+		</list> -->
+	</property>
+</bean>
+
+<!-- 使用MethodInvokingJobDetailFactoryBean，任务类可以不实现Job接口，通过targetMethod指定调用方法-->
+<bean id="taskJob" class="com.deppon.task.service.DataConversionTask"/>
+<bean id="taskJob1" class="com.deppon.task.service.DataConversionTask2"/>
+<bean id="taskJob2" class="com.deppon.task.service.DataConversionTask3"/>
+<bean id="taskJob3" class="com.deppon.task.service.DataConversionTask4"/>
+<bean id="jobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+    <property name="group" value="job_work"/>
+    <property name="name" value="job_work_name"/>
+    <!--false表示等上一个任务执行完后再开启新的任务-->
+    <property name="concurrent" value="false"/>
+    <property name="targetObject">
+        <ref bean="taskJob"/>
+    </property>
+    <property name="targetMethod">
+        <value>run</value>
+    </property>
+</bean>
+
+<bean id="jobDetail1" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+    <property name="group" value="job_work"/>
+    <property name="name" value="job_work_name"/>
+    <!--false表示等上一个任务执行完后再开启新的任务-->
+    <property name="concurrent" value="false"/>
+    <property name="targetObject">
+        <ref bean="taskJob1"/>
+    </property>
+    <property name="targetMethod">
+        <value>run</value>
+    </property>
+</bean>
+
+<bean id="jobDetail2" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+    <property name="group" value="job_work"/>
+    <property name="name" value="job_work_name"/>
+    <!--false表示等上一个任务执行完后再开启新的任务-->
+    <property name="concurrent" value="false"/>
+    <property name="targetObject">
+        <ref bean="taskJob2"/>
+    </property>
+    <property name="targetMethod">
+        <value>run</value>
+    </property>
+</bean>
+
+<bean id="jobDetail3" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+    <property name="group" value="job_work"/>
+    <property name="name" value="job_work_name"/>
+    <!--false表示等上一个任务执行完后再开启新的任务-->
+    <property name="concurrent" value="false"/>
+    <property name="targetObject">
+        <ref bean="taskJob3"/>
+    </property>
+    <property name="targetMethod">
+        <value>run</value>
+    </property>
+</bean>
+
+<!--  调度触发器 -->
+<bean id="myTrigger"
+      class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+    <property name="name" value="work_default_name"/>
+    <property name="group" value="work_default"/>
+    <property name="jobDetail">
+        <ref bean="jobDetail" />
+    </property>
+    <property name="cronExpression">
+        <value>0/6 * * * * ?</value>
+    </property>
+</bean>
+
+<bean id="myTrigger1"
+      class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+    <property name="name" value="work_default_name1"/>
+    <property name="group" value="work_default"/>
+    <property name="jobDetail">
+        <ref bean="jobDetail1" />
+    </property>
+    <property name="cronExpression">
+        <value>0/5 * * * * ?</value>
+    </property>
+</bean>
+
+<bean id="myTrigger2"
+      class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+    <property name="name" value="work_default_name2"/>
+    <property name="group" value="work_default"/>
+    <property name="jobDetail">
+        <ref bean="jobDetail2" />
+    </property>
+    <property name="cronExpression">
+        <value>0/5 * * * * ?</value>
+    </property>
+</bean>
+
+<bean id="myTrigger3"
+      class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+    <property name="name" value="work_default_name3"/>
+    <property name="group" value="work_default"/>
+    <property name="jobDetail">
+        <ref bean="jobDetail3" />
+    </property>
+    <property name="cronExpression">
+        <value>0/5 * * * * ?</value>
+    </property>
+</bean>
+
+<!-- 调度工厂 -->
+<bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+    <property name="triggers">
+        <list>
+            <ref bean="myTrigger"/>
+            <ref bean="myTrigger1"/>
+            <ref bean="myTrigger2"/>
+            <ref bean="myTrigger3"/>
+        </list>
+    </property>
+</bean>
+</beans>
